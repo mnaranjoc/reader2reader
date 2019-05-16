@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using reader2reader.Models;
+using reader2reader.ViewModels;
+using PagedList;
 
 namespace reader2reader.Controllers
 {
@@ -15,9 +17,28 @@ namespace reader2reader.Controllers
         private BooksContext db = new BooksContext();
 
         // GET: Books
-        public ActionResult Index()
+        public ActionResult Index(string search, int? page)
         {
-            return View(db.Books.ToList());
+            var viewModel = new BooksViewModel();
+            var books = (IQueryable<Book>)db.Books;
+
+            // Search
+            if (!String.IsNullOrEmpty(search))
+            {
+                books = books.Where(p => p.Title.Contains(search) ||
+                                         p.Author.Contains(search) ||
+                                         p.Genre.Contains(search));
+                viewModel.Search = search;
+            }
+
+            // Order
+            books = books.OrderBy(x => x.Title);
+
+            // Paging
+            int currentPage = (page ?? 1);
+            viewModel.Books = books.ToPagedList(currentPage, Constants.BooksPerPage);
+
+            return View(viewModel);
         }
 
         // GET: Books/Details/5
