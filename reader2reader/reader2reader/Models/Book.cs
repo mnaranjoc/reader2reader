@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace reader2reader.Models
 {
@@ -15,7 +16,14 @@ namespace reader2reader.Models
         [Display(Name = "Genero")]
         public string Genre { get; set; }
 
+        [DataType(DataType.Currency)]
         [Display(Name = "Precio")]
         public decimal Price { get; set; }
+
+        [Display(Name = "Fecha creación")]
+        public DateTime CreatedDateTime { get; set; }
+
+        [Display(Name = "Image URL")]
+        public string ImageURL { get; set; }
     }
 }

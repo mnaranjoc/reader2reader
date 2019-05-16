@@ -67,10 +67,11 @@ namespace reader2reader.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Author,Genre,Price")] Book book)
+        public ActionResult Create([Bind(Include = "Id,Title,Author,Genre,Price,ImageURL")] Book book)
         {
             if (ModelState.IsValid)
             {
+                book.CreatedDateTime = DateTime.Now;
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -99,10 +100,14 @@ namespace reader2reader.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Author,Genre,Price")] Book book)
+        public ActionResult Edit([Bind(Include = "Id,Title,Author,Genre,Price,ImageURL")] Book book)
         {
             if (ModelState.IsValid)
             {
+                if (book.CreatedDateTime == DateTime.MinValue)
+                {
+                    book.CreatedDateTime = DateTime.Now;
+                }
                 db.Entry(book).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
