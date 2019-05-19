@@ -4,6 +4,6 @@
     {
         public const string RoleAdmin = "Admin";
         public const string RoleUser = "User";
-        public const int BooksPerPage = 10;
+        public const int BooksPerPage = 6;
     }
 }
