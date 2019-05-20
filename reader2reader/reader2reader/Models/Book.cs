@@ -25,5 +25,8 @@ namespace reader2reader.Models
 
         [Display(Name = "Image URL")]
         public string ImageURL { get; set; }
+
+        [Display(Name = "Usuario creación")]
+        public string CreatedBy { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using reader2reader.Models;
 using reader2reader.ViewModels;
 using PagedList;
+using Microsoft.AspNet.Identity;
 
 namespace reader2reader.Controllers
 {
@@ -74,6 +75,7 @@ namespace reader2reader.Controllers
             if (ModelState.IsValid)
             {
                 book.CreatedDateTime = DateTime.Now;
+                book.CreatedBy = User.Identity.GetUserId();
                 db.Books.Add(book);
                 db.SaveChanges();
                 return RedirectToAction("Index");
