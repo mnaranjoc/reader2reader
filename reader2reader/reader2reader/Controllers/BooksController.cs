@@ -54,6 +54,7 @@ namespace reader2reader.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.UserEmail = User.Identity.Name;
             return View(book);
         }
 
