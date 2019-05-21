@@ -33,7 +33,7 @@ namespace reader2reader.Controllers
             }
 
             // Order
-            books = books.OrderBy(x => x.Title);
+            books = books.OrderByDescending(x => x.CreatedDateTime);
 
             // Paging
             int currentPage = (page ?? 1);
